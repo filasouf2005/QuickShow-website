@@ -8,7 +8,7 @@ const DateSelect = ({ dataTime, id }: { dataTime: any, id: string }) => {
     const navigate = useNavigate()
     const [selected, setSelected] = useState(null)
     const onBookHandler = () => {
-        if (selected) {
+        if (!selected) {
             return toast('Please select a date')
         }
         navigate(`/movies/${id}/${selected}`)
@@ -37,7 +37,7 @@ const DateSelect = ({ dataTime, id }: { dataTime: any, id: string }) => {
                         <ChevronRight width={28} />
                     </div>
                 </div>
-                <button onClick={onBookHandler} className='bg-primary text-white px-8 py-2 mt-6 rounded hover:bg-primary/90 transition-all cursor-pointer '>Book Now</button>
+                <button onClick={() => onBookHandler()} className='bg-primary text-white px-8 py-2 mt-6 rounded hover:bg-primary/90 transition-all cursor-pointer '>Book Now</button>
             </div>
         </div>
     )
