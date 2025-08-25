@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { assets, dummyDateTimeData, dummyShowsData } from '../assets/assets';
 import Loading from '../components/Loading';
-import { ClockIcon } from 'lucide-react';
+import { ArrowRightIcon, ClockIcon } from 'lucide-react';
 import isoTimeFormat from '../lib/isoTimeFormat';
 import BlurCircle from '../components/BlurCircle';
 import toast from 'react-hot-toast';
@@ -38,21 +38,28 @@ const SeatLayout = () => {
     });
   };
 
-  const renderSeats = (row, count = 9) => {
-    <div key={row} className='flex mt-2 gap-2'>
-      <div className='flex flex-wrap items-center justify-center gap-2'>
-        {Array.from({ length: count }, (_, i) => {
-          const seatId = `${row}${i + 1}`;
-          return (
-            <button key={seatId} onClick={() => handleSeatClick(seatId)} className={`h-8 w-8 rounded border border-primary/60 cursor-pointer ${selectedSeats.includes(seatId) && "bg-primary text-white"}`}>
-              {seatId}
-            </button>
-          );
-        })}
+  const renderSeats = (row, count = 7) => {
+    return (
+      <div key={row} className='flex mt-2 gap-2'>
+        <div className='flex flex-wrap items-center justify-center gap-2'>
+          {Array.from({ length: count }, (_, i) => {
+            const seatId = `${row}${i + 1}`;
+            return (
+              <button
+                key={seatId}
+                onClick={() => handleSeatClick(seatId)}
+                className={`h-8 w-8 rounded border border-primary/60 cursor-pointer ${selectedSeats.includes(seatId) && "bg-primary text-white"
+                  }`}
+              >
+                {seatId}
+              </button>
+            );
+          })}
+        </div>
       </div>
+    );
+  };
 
-    </div>
-  }
   useEffect(() => {
     getShow();
   }, []);
@@ -79,14 +86,24 @@ const SeatLayout = () => {
         <img src={assets.screenImage} alt="screen" />
         <p className='text-gray-400 text-sm mb-6'>SCREEN SIDE</p>
         <div className='flex flex-col items-center mt-10 text-xs text-gray-300'>
-          <div>
-            {groupRows[0].map((seat) => (
-              <button key={seat} onClick={() => handleSeatClick(seat)} className={`h-8 w-8 rounded border border-primary/60 cursor-pointer ${selectedSeats.includes(seat) && "bg-primary text-white"}`}>
-                {seat}
-              </button>
+          <div className='grid grid-cols-2 md:grid-cols-1 gap-8 md:gap-2 mb-6'>
+            {groupRows[0].map((row) => renderSeats(row))}
+          </div>
+          <div className='grid grid-cols-2 gap-11'>
+            {groupRows.slice(1).map((group, index) => (
+              <div key={index} >
+                {group.map((row) => renderSeats(row))}
+              </div>
             ))}
           </div>
+
         </div>
+        <button className='flex items-center gap-1 mt-20 px-10 py-3 text-sm bg-primary hover:bg-primary-dull transition rounded-full font-medium cursor-pointer active:scale-95' onClick={() => {
+          navigate('/my-bookings');
+        }}>
+          Proceed to Checkout
+          <ArrowRightIcon strokeWidth={3} className='w-4 h-4' />
+        </button>
       </div>
     </div>
   ) : (
