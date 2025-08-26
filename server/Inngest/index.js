@@ -1,5 +1,6 @@
 import { Inngest } from "inngest";
 import User from "../modles/User.js"
+import { User } from "@clerk/express";
 
 
 // Create a client to send and receive events
