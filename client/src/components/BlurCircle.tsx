@@ -1,4 +1,3 @@
-import React from 'react'
 
 const BlurCircle = ({top="auto", left="auto",right="auto",bottom="auto"}) => {
     return (

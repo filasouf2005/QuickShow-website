@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { dummyBookingData } from '../../assets/assets';
 import type { Booking } from '../../lib/Interfaces/DashbordIntrfaces';
 import Loading from '../../components/Loading';

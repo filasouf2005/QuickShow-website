@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { dummyShowsData } from '../../assets/assets';
 import type { Movie } from '../../lib/Interfaces/DashbordIntrfaces';
 import Loading from '../../components/Loading';
