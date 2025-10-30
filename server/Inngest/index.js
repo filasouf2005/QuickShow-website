@@ -1,5 +1,5 @@
 import { Inngest } from "inngest";
-import User from "../modles/User.js"
+import User from "../models/User.js"
 
 
 // Create a client to send and receive events
@@ -30,7 +30,7 @@ const syncUserDeletion = inngest.createFunction(
         await User.findByIdAndDelete(id);
     }
 );
-// Inngest functions to User Data indatabase
+// Inngest functions to Update user Data indatabase
 const syncUserUpdate = inngest.createFunction(
     { id: 'update-user-from-clerk' },
     { event: 'clerk/user.updated' },
