@@ -61,6 +61,7 @@ const Dashboard = () => {
       if (data.success) {
         setdashbordData(data.dashboardData);
         setLoading(false);
+        console.log(data.dashboardData);
       } else {
         toast.error(data.message);
       }
