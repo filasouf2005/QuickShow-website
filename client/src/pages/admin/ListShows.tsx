@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
-import type { Show, Movie } from "../../lib/Interfaces/DashbordIntrfaces";
+import type { Show } from "../../lib/Interfaces/DashbordIntrfaces";
 import Title from "../../components/admin/Title";
 import { dateFormat } from "../../lib/dateFormat";
 import { useAppContext } from "../../context/appContext";

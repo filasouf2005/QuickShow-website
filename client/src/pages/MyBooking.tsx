@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { dummyBookingData } from "../assets/assets";
 import Loading from "../components/Loading";
 import BlurCircle from "../components/BlurCircle";
 import timeFormat from "../lib/timeFormat";
 import { dateFormat } from "../lib/dateFormat";
 import { useAppContext } from "../context/appContext";
-import toast from "react-hot-toast";
 
 interface Booking {
   _id: string;
