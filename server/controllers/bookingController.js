@@ -2,7 +2,7 @@ import axios from "axios";
 import Movie from "../models/movie.js";
 import Show from "../models/Show.js";
 import Booking from "../models/booking.js";
-import strip from "stripe";
+import  { Stripe } from "stripe";
 import { inngest } from "../Inngest/index.js";
 //Check Availability Seats
 
@@ -52,7 +52,7 @@ export const createBooking = async (req, res) => {
     await showData.save();
 
     //Stripe Gatway Initialize
-    const StripeInstance = new strip(process.env.STRIPE_SECRET_KEY);
+    const StripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY);
     //Creating line items for strip
     const line_items = [
       {
