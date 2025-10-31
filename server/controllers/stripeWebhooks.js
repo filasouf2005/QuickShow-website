@@ -1,20 +1,20 @@
 import Stripe from "stripe";
 import Booking from "../models/booking.js";
 
-export const stripeWebhooks = async (request, reseponse) => {
+export const stripeWebhooks = async (req, res) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-  const sig = request.headers["stripe-signature"];
+  const sig = req.headers["stripe-signature"];
 
   let event;
 
   try {
     event = stripe.webhooks.constructEvent(
-      request.body,
+      req.body,
       sig,
       process.env.STRIPE_WEBHOOK_KEY
     );
   } catch (error) {
-    return reseponse.status(400).send(`Webhook Error: ${error.message}`);
+    return res.status(400).send(`Webhook Error: ${error.message}`);
   }
 
   try {
@@ -42,9 +42,9 @@ export const stripeWebhooks = async (request, reseponse) => {
         break;
     }
 
-    reseponse.json({ received: true });
+    res.json({ received: true });
   } catch (error) {
     console.error("🔥 Webhook processing error:", error);
-    reseponse.status(500).send("Server Internal Error");
+    res.status(500).send("Server Internal Error");
   }
 };
