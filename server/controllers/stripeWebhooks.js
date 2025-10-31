@@ -8,16 +8,19 @@ export const stripeWebhooks = async (req, res) => {
   let event;
 
   try {
+    // ⚠️ تأكد أن req.body هو "raw body" وليس JSON
     event = stripe.webhooks.constructEvent(
-      req.body,
+      req.body, // raw buffer (وليس object)
       sig,
       process.env.STRIPE_WEBHOOK_KEY
     );
   } catch (error) {
+    console.error("❌ Error verifying Stripe webhook:", error.message);
     return res.status(400).send(`Webhook Error: ${error.message}`);
   }
 
   try {
+    // ✅ التعامل مع الحدث الصحيح
     switch (event.type) {
       case "checkout.session.completed": {
         const session = event.data.object;
@@ -28,6 +31,7 @@ export const stripeWebhooks = async (req, res) => {
           break;
         }
 
+        // ✅ تحديث الحجز في قاعدة البيانات
         await Booking.findByIdAndUpdate(bookingId, {
           isPaid: true,
           paymentLink: "",
