@@ -20,7 +20,8 @@ await connectDB();
 //Stripe Webhooks Route
 app.use(
   "/api/stripe",
-  express.raw({ type: "application/json", stripeWebhooks })
+  express.raw({ type: "application/json" }),
+  stripeWebhooks
 );
 //Middleware
 app.use(cors());
