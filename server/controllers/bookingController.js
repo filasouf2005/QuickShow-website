@@ -3,6 +3,7 @@ import Movie from "../models/movie.js";
 import Show from "../models/Show.js";
 import Booking from "../models/booking.js";
 import strip from "stripe";
+import { inngest } from "../Inngest/index.js";
 //Check Availability Seats
 
 const checkSeatsAvailability = async (showId, selectedSeats) => {
@@ -75,6 +76,12 @@ export const createBooking = async (req, res) => {
     });
     booking.paymentLink = session.url;
     await booking.save();
+
+    //
+    await inngest.send({
+      name: "app/checkpayment",
+      data: { bookingId: booking._id.toString() },
+    });
 
     res.json({ success: true, url: session.url });
   } catch (error) {
